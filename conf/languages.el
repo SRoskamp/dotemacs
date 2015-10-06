@@ -1,0 +1,3 @@
+(require 'vhdl)
+
+(provide 'languages)
