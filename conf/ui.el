@@ -1,5 +1,5 @@
-(require 'spaceline-config)
-(spaceline-spacemacs-theme)
+;;(require 'spaceline-config)
+;;(spaceline-spacemacs-theme)
 
 (load-theme 'zenburn t)
 
