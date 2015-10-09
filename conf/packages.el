@@ -22,6 +22,10 @@
 (use-package python-mode)
 
 
+(use-package ido-ubiquitous)
+(use-package ido-vertical-mode)
+(use-package smex)
+(use-package flx-ido)
 
 (provide 'packages)
 ;; packages ends here
