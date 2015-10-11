@@ -22,6 +22,7 @@
 (use-package python-mode)
 (use-package powerline)
 (use-package ace-jump-mode)
+(use-package expand-region)
 
 ;; ido customizations (see ui.el)
 (use-package ido-ubiquitous)

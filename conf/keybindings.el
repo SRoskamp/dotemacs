@@ -12,4 +12,8 @@
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 (define-key global-map (kbd "C-c C-SPC") 'ace-jump-line-mode)
 
+;; expand-region
+(require 'expand-region)
+(global-set-key (kbd "C-c r") 'er/expand-region)
+
 (provide 'keybindings)
