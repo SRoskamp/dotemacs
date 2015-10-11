@@ -21,6 +21,7 @@
 (use-package zenburn-theme)
 (use-package python-mode)
 (use-package powerline)
+(use-package ace-jump-mode)
 
 ;; ido customizations (see ui.el)
 (use-package ido-ubiquitous)
