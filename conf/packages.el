@@ -28,6 +28,8 @@
 (use-package smex)
 (use-package flx-ido)
 
+(use-package hlinum)
+
 (use-package auto-complete)
 (use-package flycheck)
 
