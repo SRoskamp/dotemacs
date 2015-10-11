@@ -8,10 +8,12 @@
 (powerline-default-theme)
 
 (require 'hlinum)
-;(hlinum-activate) ;disabled until i figure out how to adjust the color to the zenburn theme
+(hlinum-activate)
 (global-hl-line-mode)
 
-
+(set-face-background 'linum-highlight-face "#383838")
+(set-face-foreground 'linum-highlight-face "#9FC59F")
+(set-face-bold 'linum-highlight-face t)
 
 (global-linum-mode)
 (setq linum-format "%4d \u2502") ;; leading space, vertical line as spacer
