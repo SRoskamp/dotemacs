@@ -20,12 +20,16 @@
 ;; Custom packages
 (use-package zenburn-theme)
 (use-package python-mode)
+(use-package powerline)
 
-
+;; ido customizations (see ui.el)
 (use-package ido-ubiquitous)
 (use-package ido-vertical-mode)
 (use-package smex)
 (use-package flx-ido)
+
+(use-package auto-complete)
+(use-package flycheck)
 
 (provide 'packages)
 ;; packages ends here
