@@ -16,4 +16,13 @@
 (require 'expand-region)
 (global-set-key (kbd "C-c r") 'er/expand-region)
 
+;; multiple-cursors
+(require 'multiple-cursors)
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines) ;; Add a cursor to each line in an active region
+
+(global-set-key (kbd "C->") 'mc/mark-next-like-this) ;; Mark next keyword in buffer
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this) ;; Mark previous in buffer
+(global-set-key (kbd "C-c m") 'mc/mark-all-like-this) ;; Mark all keywords in buffer
+
+
 (provide 'keybindings)

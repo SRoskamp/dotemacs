@@ -23,6 +23,7 @@
 (use-package powerline)
 (use-package ace-jump-mode)
 (use-package expand-region)
+(use-package multiple-cursors)
 
 ;; ido customizations (see ui.el)
 (use-package ido-ubiquitous)
