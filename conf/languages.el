@@ -1,5 +1,5 @@
 (require 'vhdl)
 (require 'python)
-(require 'latex)
+;(require 'latex)
 
 (provide 'languages)
