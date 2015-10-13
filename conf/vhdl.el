@@ -6,5 +6,8 @@
 (setq vhdl-upper-case-enum-values t)
 
 (setq vhdl-use-direct-instantiation nil)
+(setq vhdl-clock-edge-condition (quote function))
+(setq vhdl-underscore-is-part-of-word t)
+
 
 (provide 'vhdl)
