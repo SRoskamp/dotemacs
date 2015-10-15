@@ -24,7 +24,8 @@
 (use-package ace-jump-mode)
 (use-package expand-region)
 (use-package multiple-cursors)
-;(use-package auctex)
+(use-package tex-site
+  :ensure auctex)
 
 ;; ido customizations (see ui.el)
 (use-package ido-ubiquitous)
