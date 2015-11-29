@@ -19,14 +19,22 @@
 
 ;; Custom packages
 (use-package zenburn-theme)
+
 (use-package python-mode)
+(use-package ox-gfm)
+
 (use-package powerline)
+
 (use-package ace-jump-mode)
+
 (use-package expand-region)
 (use-package multiple-cursors)
+
 (use-package tex-site
   :ensure auctex)
 (use-package latex-preview-pane)
+(use-package magit)
+
 (use-package magit)
 
 ;; ido customizations (see ui.el)
