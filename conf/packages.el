@@ -21,8 +21,6 @@
 (use-package python-mode)
 (use-package ox-gfm)
 
-(use-package powerline)
-
 (use-package ace-jump-mode)
 
 (use-package expand-region)
