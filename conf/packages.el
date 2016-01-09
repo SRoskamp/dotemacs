@@ -30,6 +30,8 @@
 
 (use-package tex-site
   :ensure auctex)
+(use-package latex-preview-pane)
+(use-package magit)
 
 (use-package magit)
 
