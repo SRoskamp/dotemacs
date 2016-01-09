@@ -15,8 +15,6 @@
 ;; Always ensure
 (setq use-package-always-ensure t)
 
-
-
 ;; Custom packages
 (use-package zenburn-theme)
 
@@ -33,8 +31,6 @@
 (use-package tex-site
   :ensure auctex)
 (use-package latex-preview-pane)
-(use-package magit)
-
 (use-package magit)
 
 ;; ido customizations (see ui.el)
