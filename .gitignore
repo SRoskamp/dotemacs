@@ -4,3 +4,4 @@ ido.last
 smex-items
 *.dat
 eshell/
+session.*
