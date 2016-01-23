@@ -5,3 +5,4 @@ smex-items
 *.dat
 eshell/
 session.*
+.#ido.last
