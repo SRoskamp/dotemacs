@@ -31,4 +31,7 @@
 
 (global-set-key "\M-Y" 'yank-pop-forwards)
 
+;; imenu
+(global-set-key (kbd "C-c i") 'imenu)
+
 (provide 'keybindings)
