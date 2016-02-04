@@ -30,4 +30,7 @@
 ;; Calc eval region
 (global-set-key (kbd "C-=") 'calc-eval-region)
 
+;; imenu
+(global-set-key (kbd "C-c i") 'imenu)
+
 (provide 'keybindings)
