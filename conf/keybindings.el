@@ -25,10 +25,9 @@
 (global-set-key (kbd "C-c m") 'mc/mark-all-like-this) ;; Mark all keywords in buffer
 
 ;; Yank-pop forwards
-(defun yank-pop-forwards (arg)
-  (interactive "p")
-  (yank-pop (- arg)))
-
 (global-set-key "\M-Y" 'yank-pop-forwards)
+
+;; Calc eval region
+(global-set-key (kbd "C-=") 'calc-eval-region)
 
 (provide 'keybindings)

@@ -9,4 +9,5 @@
 (require 'general)
 (require 'ui)
 (require 'languages)
+(require 'functions)
 (require 'keybindings)
