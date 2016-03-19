@@ -21,4 +21,7 @@
 
 (show-paren-mode)
 
+;; Org-Mode Settings
+(setq org-export-with-sub-superscripts '{})
+
 (provide 'general)

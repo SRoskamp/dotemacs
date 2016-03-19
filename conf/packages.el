@@ -29,6 +29,8 @@
 
 (use-package arduino-mode)
 
+(use-package scad-mode)
+
 ;; ido customizations (see ui.el)
 (use-package ido-ubiquitous)
 (use-package ido-vertical-mode)
