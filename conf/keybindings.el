@@ -1,5 +1,8 @@
 (windmove-default-keybindings 'meta)
 
+;; Hippie Expand
+(global-set-key [remap dabbrev-expand] 'hippie-expand)
+
 ;; SMEX command
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
