@@ -6,4 +6,5 @@ smex-items
 eshell/
 session.*
 .#ido.last
-
+.cask/
+.mc-lists.el

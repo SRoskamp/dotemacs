@@ -25,4 +25,7 @@
 (add-hook 'text-mode-hook 'flyspell-mode)
 (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
+;; Org-Mode Settings
+(setq org-export-with-sub-superscripts '{})
+
 (provide 'general)
