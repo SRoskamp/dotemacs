@@ -9,3 +9,4 @@ session.*
 .cask/
 .mc-lists.el
 tramp
+srecode-map.el

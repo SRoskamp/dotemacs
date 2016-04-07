@@ -29,6 +29,7 @@
 
 (use-package arduino-mode)
 
+(use-package matlab-mode)
 (use-package dts-mode)
 
 ;; ido customizations (see ui.el)
