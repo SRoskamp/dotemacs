@@ -29,7 +29,7 @@
 
 (use-package arduino-mode)
 
-(use-package scad-mode)
+(use-package dts-mode)
 
 ;; ido customizations (see ui.el)
 (use-package ido-ubiquitous)

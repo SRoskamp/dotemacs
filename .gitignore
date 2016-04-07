@@ -8,3 +8,4 @@ session.*
 .#ido.last
 .cask/
 .mc-lists.el
+tramp
