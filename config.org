@@ -24,26 +24,48 @@ Use =use-package= to manage package usage
 Define a bunch of helper functions
 
 #+BEGIN_SRC emacs-lisp
-  (defun find-file-as-sudo ()
-    (interactive)
-    (let ((file-name (buffer-file-name)))
-      (when file-name
-        (find-alternate-file (concat "/sudo::" file-name)))))
+    (defun find-file-as-sudo ()
+      (interactive)
+      (let ((file-name (buffer-file-name)))
+        (when file-name
+          (find-alternate-file (concat "/sudo::" file-name)))))
 
-  (defun yank-pop-forwards (arg)
-    (interactive "p")
-    (yank-pop (- arg)))
+    (defun yank-pop-forwards (arg)
+      (interactive "p")
+      (yank-pop (- arg)))
 
-  (defun calc-eval-region (arg)
-    "Evaluate an expression in calc and communicate the result.
+    (defun calc-eval-region (arg)
+      "Evaluate an expression in calc and communicate the result.
 
-    If the region is active evaluate that, otherwise search backwards
-    to the first whitespace character to find the beginning of the 
-    expression. By default, replace the expression with its value. If
-    called with the universal prefix argument, keep the expression 
-    and insert the result into the buffer after it. If called with a
-    negative prefix argument, just echo the result in the minibuffer."
-    (interactive "p")
+      If the region is active evaluate that, otherwise search backwards
+      to the first whitespace character to find the beginning of the 
+      expression. By default, replace the expression with its value. If
+      called with the universal prefix argument, keep the expression 
+      and insert the result into the buffer after it. If called with a
+      negative prefix argument, just echo the result in the minibuffer."
+      (interactive "p")
+      (let (start end)
+        (if (use-region-p)
+            (setq start (region-beginning) end (region-end))
+          (progn
+            (setq end (point))
+            (setq start (search-backward-regexp "\\s-\\|\n" 0 1))
+            (setq start (1+ (if start start 0)))
+            (goto-char end)))
+        (let ((value (calc-eval (buffer-substring-no-properties start end))))
+          (pcase arg
+            (1 (delete-region start end))
+            (4 (insert " = ")))
+          (pcase arg
+            ((or 1 4) (insert value))
+            (-1 (message value))))))
+
+  (require 'calc-bin)
+  (defun calc-change-radix (arg x)
+    "Convert the number before point or in active region to radix given by user. 
+     Input radix will be determined by prefix (0x, 0b or 0o) or given arg."
+    (interactive "p
+  nNew base: ")
     (let (start end)
       (if (use-region-p)
           (setq start (region-beginning) end (region-end))
@@ -52,13 +74,21 @@ Define a bunch of helper functions
           (setq start (search-backward-regexp "\\s-\\|\n" 0 1))
           (setq start (1+ (if start start 0)))
           (goto-char end)))
-      (let ((value (calc-eval (buffer-substring-no-properties start end))))
-        (pcase arg
-          (1 (delete-region start end))
-          (4 (insert " = ")))
-        (pcase arg
-          ((or 1 4) (insert value))
-          (-1 (message value))))))
+      (setq input-str (buffer-substring-no-properties start end))
+      (if (string-match "^[0#]x" input-str) (setq in-base 16)
+        (if (string-match "^[0#]o" input-str) (setq in-base 8)
+          (if (string-match "^[0#]b" input-str) (setq in-base 2)
+            (if (= arg 1) (setq in-base 10)
+              (setq in-base arg)))))
+      (setq input-str (replace-regexp-in-string "^[0#][xob]" "" input-str))
+      (let ((value
+             (let ((calc-number-radix x)) (math-format-radix (string-to-number input-str in-base)))))
+        (delete-region start end)
+        (pcase x
+          (2 (insert "0b"))
+          (8 (insert "0o"))
+          (16 (insert "0x")))
+        (insert value))))
 #+END_SRC
 
 Enable keybindings for those functions
@@ -66,6 +96,7 @@ Enable keybindings for those functions
 #+BEGIN_SRC emacs-lisp
   (global-set-key "\M-Y" 'yank-pop-forwards)
   (global-set-key (kbd "C-=") 'calc-eval-region)
+  (global-set-key (kbd "C-+") 'calc-change-radix)
 #+END_SRC
 * UI settings
 ** Disable extra window stuff
@@ -434,6 +465,12 @@ Use =ace-jump= to jump to specific lines or words
   (global-set-key (kbd "C->") 'mc/mark-next-like-this)     ;; Mark next keyword in buffer
   (global-set-key (kbd "C-<") 'mc/mark-previous-like-this) ;; Mark previous in buffer
   (global-set-key (kbd "C-c m") 'mc/mark-all-like-this)    ;; Mark all keywords in buffer
+#+END_SRC
+** which key
+
+#+BEGIN_SRC emacs-lisp
+  (use-package which-key
+    :config (which-key-mode))
 #+END_SRC
 * Additional keybindings
 
