@@ -1,13 +1,7 @@
-;; New init woohoo
-(add-to-list 'load-path (expand-file-name "conf" user-emacs-directory))
-
 (require 'package)
+(setq package-enable-at-startup nil)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (add-to-list 'package-archives '("gnu"   . "http://elpa.gnu.org/packages/"))
+(package-initialize)
 
-(require 'packages)
-(require 'general)
-(require 'ui)
-(require 'languages)
-(require 'functions)
-(require 'keybindings)
+(org-babel-load-file "~/.emacs.d/config.org")

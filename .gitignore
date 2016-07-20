@@ -10,3 +10,6 @@ session.*
 .mc-lists.el
 tramp
 srecode-map.el
+abbrev_defs
+config.el
+projectile-bookmarks.eld

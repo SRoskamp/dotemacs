@@ -1,0 +1,445 @@
+#+TITLE: Emacs configuration
+
+* Set personal information
+
+#+BEGIN_SRC emacs-lisp
+  (setq user-full-name "Steffen Roskamp"
+        user-mail-address "beispiel@fake.com")
+#+END_SRC
+* Package management
+
+Use =use-package= to manage package usage
+
+#+BEGIN_SRC emacs-lisp
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package))
+  (require 'use-package)
+  (require 'bind-key)
+
+  (setq use-package-always-ensure t)
+#+END_SRC
+* Utility functions
+
+Define a bunch of helper functions
+
+#+BEGIN_SRC emacs-lisp
+  (defun find-file-as-sudo ()
+    (interactive)
+    (let ((file-name (buffer-file-name)))
+      (when file-name
+        (find-alternate-file (concat "/sudo::" file-name)))))
+
+  (defun yank-pop-forwards (arg)
+    (interactive "p")
+    (yank-pop (- arg)))
+
+  (defun calc-eval-region (arg)
+    "Evaluate an expression in calc and communicate the result.
+
+    If the region is active evaluate that, otherwise search backwards
+    to the first whitespace character to find the beginning of the 
+    expression. By default, replace the expression with its value. If
+    called with the universal prefix argument, keep the expression 
+    and insert the result into the buffer after it. If called with a
+    negative prefix argument, just echo the result in the minibuffer."
+    (interactive "p")
+    (let (start end)
+      (if (use-region-p)
+          (setq start (region-beginning) end (region-end))
+        (progn
+          (setq end (point))
+          (setq start (search-backward-regexp "\\s-\\|\n" 0 1))
+          (setq start (1+ (if start start 0)))
+          (goto-char end)))
+      (let ((value (calc-eval (buffer-substring-no-properties start end))))
+        (pcase arg
+          (1 (delete-region start end))
+          (4 (insert " = ")))
+        (pcase arg
+          ((or 1 4) (insert value))
+          (-1 (message value))))))
+#+END_SRC
+
+Enable keybindings for those functions
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key "\M-Y" 'yank-pop-forwards)
+  (global-set-key (kbd "C-=") 'calc-eval-region)
+#+END_SRC
+* UI settings
+** Disable extra window stuff
+
+Disable toolbar, menubar and scrollbars
+
+#+BEGIN_SRC emacs-lisp
+  (setq inhibit-startup-screen t)
+  (tool-bar-mode 0)
+  (menu-bar-mode 0)
+  (scroll-bar-mode -1)
+#+END_SRC
+** Use fancy symbols
+
+Why not?
+
+#+BEGIN_SRC emacs-lisp
+  (global-prettify-symbols-mode t)
+#+END_SRC
+** Load up a theme
+
+Install or enable the zenburn package, and enable it
+
+#+BEGIN_SRC emacs-lisp
+  (use-package zenburn-theme
+    :config (load-theme 'zenburn t))
+#+END_SRC
+** Enable line numbers
+
+Reserve 4 digits for line numbers, leading spaces with a pipe
+as a spacer. Also remove the left fringe.
+
+#+BEGIN_SRC emacs-lisp
+  (global-linum-mode)
+  (setq linum-format "%4d \u2502")
+  (set-fringe-mode '(0 . 1))
+#+END_SRC
+** Highlight the current line
+
+=global-hl-line-mode= highlights the background color of the current line
+
+#+BEGIN_SRC emacs-lisp
+  (global-hl-line-mode)
+#+END_SRC
+
+Use =hlinum= to highlight the current line number as well
+
+#+BEGIN_SRC emacs-lisp
+  (use-package hlinum
+    :config (hlinum-activate))
+
+  (set-face-background 'linum-highlight-face "#383838")
+  (set-face-foreground 'linum-highlight-face "#9FC59F")
+  (set-face-bold 'linum-highlight-face t)
+#+END_SRC
+** Highlight uncommitted changes
+
+Use the =diff-hl= package to highlight changed and uncommitted 
+lines in repositories
+
+#+BEGIN_SRC emacs-lisp
+  (use-package diff-hl)
+
+  (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
+  (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode)
+#+END_SRC
+** Highlight parens
+
+Highlight corresponding parens to that at point
+
+#+BEGIN_SRC emacs-lisp
+  (show-paren-mode)
+#+END_SRC
+** y-or-n everywhere
+
+Disable annoying yes-or-no questions and replace with y-or-n
+
+#+BEGIN_SRC emacs-lisp
+  (fset 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+* Language major modes
+** VHDL
+
+Set VHDL preferences:
+ - Date format DD.MM.YYYY
+ - Enable electric mode
+ - Enable stutter (.. -> =>)
+ - Upcase enums
+ - Use rising_edge
+ - Use active-high, synchronous resets
+ - Dont use array indexes in sensitivity list
+
+#+BEGIN_SRC emacs-lisp
+  (setq vhdl-date-format "%d.%m.%Y")
+
+  (setq vhdl-electric-mode t)
+  (setq vhdl-stutter-mode t)
+
+  (setq vhdl-upper-case-enum-values t)
+
+  ; Template settings
+  (setq vhdl-clock-edge-condition (quote function))
+  (setq vhdl-reset-active-high t)
+  (setq vhdl-reset-kind (quote sync))
+
+  ; Sensitivity list
+  (setq vhdl-array-index-record-field-in-sensitivity-list nil)
+#+END_SRC
+** Python
+
+Enable python auto completion
+
+#+BEGIN_SRC emacs-lisp
+  (use-package python-mode)
+  (setq py-auto-complete-p t)
+#+END_SRC
+** Latex
+
+Get auctex and enable spellchecking in tex files
+
+#+BEGIN_SRC emacs-lisp
+  (use-package tex-site
+    :ensure auctex)
+  (use-package latex-preview-pane)
+  (add-hook 'tex-mode-hook
+            #'(lamba () (setq ispell-parser 'tex)))
+#+END_SRC
+
+Automatically parse file after writing it
+
+#+BEGIN_SRC emacs-lisp
+  (setq TeX-parse-self t)
+#+END_SRC
+
+Always use =pdflatex= when compiling Latex documents.
+
+#+BEGIN_SRC emacs-lisp
+  (setq TeX-PDF-mode t)
+#+END_SRC
+
+Enable math hangling and always set the current file as the main one.
+
+#+BEGIN_SRC emacs-lisp
+   (add-hook 'LaTeX-mode-hook
+            (lambda ()
+              (LaTeX-math-mode)
+              (setq TeX-master t)))
+#+END_SRC
+** Text
+
+Turn on auto-fill for text modes
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default fill-column 120)
+  (add-hook 'text-mode-hook 'turn-on-auto-fill)
+  (setq paragraph-start "\f\\|[ \t]*$\\|[ \t]*[-+*] ")
+#+END_SRC
+** Matlab
+
+Install matlab-mode package
+
+#+BEGIN_SRC emacs-lisp
+  (use-package matlab-mode)
+#+END_SRC
+** Arduino
+
+Install and use =arduino-mode= package
+
+#+BEGIN_SRC emacs-lisp
+  (use-package arduino-mode)
+#+END_SRC
+** Additional modes
+
+Additional, rarely used modes
+
+#+BEGIN_SRC emacs-lisp
+  (use-package dts-mode)
+  (use-package csv-mode)
+#+END_SRC
+* Org-Mode settings
+** Display preferences
+
+Enable pretty bullets instead of asterisks
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org-bullets
+    :config   (add-hook 'org-mode-hook
+                        (lambda ()
+                          (org-bullets-mode t))))
+#+END_SRC
+
+Use syntax highlighting in source code blocks and make TAB behave like the corresponding major mode
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-src-fontify-natively t)
+  (setq org-src-tab-acts-natively t)
+#+END_SRC
+
+Use the current window instead of a new one for code editing
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-src-window-setup 'current-window)
+#+END_SRC
+** Exporting
+
+Fix sub/superscripts
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-export-with-sub-superscripts '{})
+#+END_SRC
+
+Allow =babel= to evaluate code of given languages, don't ask before eval
+
+#+BEGIN_SRC emacs-lisp
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (dot . t)
+     (python . t)
+     (matlab . t)
+     (makefile . t)
+     (gnuplot . t)))
+
+  (setq org-confirm-babel-evaluate nil)
+#+END_SRC
+
+Associate the "dot" language with the =graphviz-dot= major mode
+
+#+BEGIN_SRC emacs-lisp
+  (use-package graphviz-dot-mode)
+  (add-to-list 'org-src-lang-modes '("dot" . graphviz-dot))
+#+END_SRC
+
+Enable smart quotes for exporting
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-export-with-smart-quotes t)
+#+END_SRC
+
+*** Reveal.js
+
+    Enable and configure exporter for reveal.js (presentation framework). This needs internet access.
+    For local support, download a copy of the reveal.js source and point org-reveal-root to it
+
+    #+BEGIN_SRC emacs-lisp
+      (use-package ox-reveal)
+
+      (setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/")
+      (setq org-reveal-mathjax t)
+
+      (use-package htmlize)
+    #+END_SRC
+*** HTML
+
+Don't include footer in HTML exports
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-html-postamble nil)
+#+END_SRC
+*** PDF
+
+Enable creation of PDFs with syntax-highlighted code blocks using the =minted= package.
+This needs access to shell commands when exporting
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-latex-pdf-process
+        '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+#+END_SRC
+
+Include minted package in Latex exports
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'org-latex-packages-alist '("" "minted"))
+  (setq org-latex-listings 'minted)
+#+END_SRC
+*** Bootstrap
+    
+    Get exporter for Twitter Bootstrap (fancy HTML)
+ 
+    #+BEGIN_SRC emacs-lisp
+      (use-package ox-twbs)
+    #+END_SRC
+* Editing
+
+** abbrevs
+
+Prefix abbrevs with ; to avoid collisions with real words
+
+#+BEGIN_SRC emacs-lisp
+  (define-abbrev-table 'global-abbrev-table
+    '((";name" "Steffen Roskamp")))
+#+END_SRC
+
+Always enable abbrev mode
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default abbrev-mode t)
+#+END_SRC
+** ido
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ido-ubiquitous)
+  (use-package ido-vertical-mode)
+  (use-package flx-ido)
+
+  (setq ido-enable-flex-matching t)
+  (setq ido-everywhere t)
+  (ido-mode 1)
+  (ido-ubiquitous)
+  (flx-ido-mode 1)
+  (setq ido-create-new-buffer 'always)
+  (ido-vertical-mode 1)
+  (setq ido-vertical-define-keys 'C-n-and-C-p-only)
+  (setq ido-use-faces nil)
+#+END_SRC
+** smex
+
+#+BEGIN_SRC emacs-lisp
+  (use-package smex
+    :config (smex-initialize))
+
+  (global-set-key (kbd "M-x") 'smex)
+  (global-set-key (kbd "M-X") 'smex-major-mode-commands)
+#+END_SRC
+** flyspell
+
+Use flycheck in text buffers
+
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck)
+
+  (add-hook 'text-mode-hook 'flyspell-mode)
+  (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+#+END_SRC
+** projectile
+
+#+BEGIN_SRC emacs-lisp
+  (use-package projectile
+    :config (projectile-global-mode))
+#+END_SRC
+** ace-jump
+
+Use =ace-jump= to jump to specific lines or words
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ace-jump-mode)
+
+  (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+  (define-key global-map (kbd "C-c C-SPC") 'ace-jump-line-mode)
+#+END_SRC 
+** expand-region
+
+#+BEGIN_SRC emacs-lisp
+  (use-package expand-region
+    :config (global-set-key (kbd "C-c r") 'er/expand-region))
+#+END_SRC
+** multiple cursors
+
+#+BEGIN_SRC emacs-lisp
+  (use-package multiple-cursors)
+
+  (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)      ;; Add a cursor to each line in an active region
+
+  (global-set-key (kbd "C->") 'mc/mark-next-like-this)     ;; Mark next keyword in buffer
+  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this) ;; Mark previous in buffer
+  (global-set-key (kbd "C-c m") 'mc/mark-all-like-this)    ;; Mark all keywords in buffer
+#+END_SRC
+* Additional keybindings
+
+#+BEGIN_SRC emacs-lisp
+  (windmove-default-keybindings 'meta)
+
+  (global-set-key (kbd "C-c i") 'imenu)
+  (global-set-key [remap dabbrev-expand] 'hippie-expand)
+#+END_SRC
