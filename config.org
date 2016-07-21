@@ -441,13 +441,17 @@ Use flycheck in text buffers
 #+END_SRC
 ** ace-jump
 
-Use =ace-jump= to jump to specific lines or words
+Use =avy= to jump to specific lines or words, use ace-window to switch between windows
 
 #+BEGIN_SRC emacs-lisp
-  (use-package ace-jump-mode)
+  (use-package avy)
 
-  (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
-  (define-key global-map (kbd "C-c C-SPC") 'ace-jump-line-mode)
+  (global-set-key (kbd "C-c SPC") 'avy-goto-char)
+  (global-set-key (kbd "C-c C-SPC") 'avy-goto-line)
+
+  (use-package ace-window)
+  (global-set-key (kbd "M-p") 'ace-window)
+  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
 #+END_SRC 
 ** expand-region
 
