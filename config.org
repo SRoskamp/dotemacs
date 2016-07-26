@@ -127,12 +127,12 @@ Install or enable the zenburn package, and enable it
 ** Enable line numbers
 
 Reserve 4 digits for line numbers, leading spaces with a pipe
-as a spacer. Also remove the left fringe.
+as a spacer. Also remove the right fringe.
 
 #+BEGIN_SRC emacs-lisp
   (global-linum-mode)
-  (setq linum-format "%4d \u2502")
-  (set-fringe-mode '(0 . 1))
+  (setq linum-format "%4d")
+  (set-fringe-mode '(1 . 0))
 #+END_SRC
 ** Highlight the current line
 
@@ -237,7 +237,7 @@ Always use =pdflatex= when compiling Latex documents.
   (setq TeX-PDF-mode t)
 #+END_SRC
 
-Enable math hangling and always set the current file as the main one.
+Enable math handling and always set the current file as the main one.
 
 #+BEGIN_SRC emacs-lisp
    (add-hook 'LaTeX-mode-hook
@@ -425,10 +425,16 @@ Always enable abbrev mode
 #+END_SRC
 ** flyspell
 
-Use flycheck in text buffers
+Use flyspell in text buffers
 
 #+BEGIN_SRC emacs-lisp
   (use-package flycheck)
+  (use-package flycheck-pos-tip)
+
+  (global-flycheck-mode)
+
+  (with-eval-after-load 'flycheck
+    (flycheck-pos-tip-mode))
 
   (add-hook 'text-mode-hook 'flyspell-mode)
   (add-hook 'prog-mode-hook 'flyspell-prog-mode)
