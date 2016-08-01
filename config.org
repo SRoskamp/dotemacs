@@ -230,7 +230,7 @@ Enable call to Nomenclature first when compiling Latex
 #+BEGIN_SRC emacs-lisp
   (eval-after-load "tex"
     '(add-to-list 'TeX-command-list
-                  '("Nomenclature" "makeindex %s.nlo -s nomecl.ist -o %s.nls"
+                  '("Nomenclature" "makeindex %s.nlo -s nomencl.ist -o %s.nls"
                     (lambda (name command file)
                       (TeX-run-compile name command file)
                       (TeX-process-set-variable file 'TeX-command-next TeX-command-default))
