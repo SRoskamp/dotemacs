@@ -207,11 +207,12 @@ Set VHDL preferences:
 #+END_SRC
 ** Python
 
-Enable python auto completion
+Use elpy for python editing. This includes useful command such as C-c C-d, which opens the documentation for the
+function at point.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package python-mode)
-  (setq py-auto-complete-p t)
+  (use-package elpy
+    :config (elpy-enable))
 #+END_SRC
 ** Latex
 
@@ -278,7 +279,7 @@ Install matlab-mode package
 Install and use =arduino-mode= package
 
 #+BEGIN_SRC emacs-lisp
-  (use-package arduino-mode)
+;;  (use-package arduino-mode)
 #+END_SRC
 ** Additional modes
 
@@ -493,10 +494,15 @@ Use =avy= to jump to specific lines or words, use ace-window to switch between w
   (global-set-key (kbd "C-c m") 'mc/mark-all-like-this)    ;; Mark all keywords in buffer
 #+END_SRC
 ** which key
-
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
     :config (which-key-mode))
+#+END_SRC
+** yasnippets
+#+BEGIN_SRC emacs-lisp
+  (use-package yasnippet
+    :init
+      (yas-global-mode 1))
 #+END_SRC
 * Additional keybindings
 
