@@ -4,7 +4,7 @@
 
 #+BEGIN_SRC emacs-lisp
   (setq user-full-name "Steffen Roskamp"
-        user-mail-address "beispiel@fake.com")
+        user-mail-address "steffen.roskamp@gmail.com")
 #+END_SRC
 * Package management
 
@@ -207,11 +207,12 @@ Set VHDL preferences:
 #+END_SRC
 ** Python
 
-Enable python auto completion
+Use elpy for python editing. This includes useful command such as C-c C-d, which opens the documentation for the
+function at point.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package python-mode)
-  (setq py-auto-complete-p t)
+  (use-package elpy
+    :config (elpy-enable))
 #+END_SRC
 ** Latex
 
@@ -223,6 +224,18 @@ Get auctex and enable spellchecking in tex files
   (use-package latex-preview-pane)
   (add-hook 'tex-mode-hook
             #'(lamba () (setq ispell-parser 'tex)))
+#+END_SRC
+
+Enable call to Nomenclature first when compiling Latex
+
+#+BEGIN_SRC emacs-lisp
+  (eval-after-load "tex"
+    '(add-to-list 'TeX-command-list
+                  '("Nomenclature" "makeindex %s.nlo -s nomencl.ist -o %s.nls"
+                    (lambda (name command file)
+                      (TeX-run-compile name command file)
+                      (TeX-process-set-variable file 'TeX-command-next TeX-command-default))
+                    nil t :help "Create nomenclature file")))
 #+END_SRC
 
 Automatically parse file after writing it
@@ -266,7 +279,7 @@ Install matlab-mode package
 Install and use =arduino-mode= package
 
 #+BEGIN_SRC emacs-lisp
-  (use-package arduino-mode)
+;;  (use-package arduino-mode)
 #+END_SRC
 ** Additional modes
 
@@ -277,6 +290,10 @@ Additional, rarely used modes
   (use-package csv-mode)
 #+END_SRC
 * Org-Mode settings
+** General
+#+BEGIN_SRC emacs-lisp
+    (setq org-directory "~/org")
+#+END_SRC
 ** Display preferences
 
 Enable pretty bullets instead of asterisks
@@ -477,10 +494,15 @@ Use =avy= to jump to specific lines or words, use ace-window to switch between w
   (global-set-key (kbd "C-c m") 'mc/mark-all-like-this)    ;; Mark all keywords in buffer
 #+END_SRC
 ** which key
-
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
     :config (which-key-mode))
+#+END_SRC
+** yasnippets
+#+BEGIN_SRC emacs-lisp
+  (use-package yasnippet
+    :init
+      (yas-global-mode 1))
 #+END_SRC
 * Additional keybindings
 

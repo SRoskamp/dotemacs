@@ -14,3 +14,4 @@ abbrev_defs
 config.el
 projectile-bookmarks.eld
 *smex-items*
+./snippets/*
