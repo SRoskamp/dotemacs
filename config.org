@@ -114,7 +114,7 @@ Disable toolbar, menubar and scrollbars
 Why not?
 
 #+BEGIN_SRC emacs-lisp
-  (global-prettify-symbols-mode t)
+;  (global-prettify-symbols-mode t)
 #+END_SRC
 ** Load up a theme
 
@@ -145,12 +145,12 @@ as a spacer. Also remove the right fringe.
 Use =hlinum= to highlight the current line number as well
 
 #+BEGIN_SRC emacs-lisp
-  (use-package hlinum
-    :config (hlinum-activate))
+;  (use-package hlinum
+;    :config (hlinum-activate))
 
-  (set-face-background 'linum-highlight-face "#383838")
-  (set-face-foreground 'linum-highlight-face "#9FC59F")
-  (set-face-bold 'linum-highlight-face t)
+;  (set-face-background 'linum-highlight-face "#383838")
+;  (set-face-foreground 'linum-highlight-face "#9FC59F")
+;  (set-face-bold 'linum-highlight-face t)
 #+END_SRC
 ** Highlight uncommitted changes
 
@@ -466,9 +466,7 @@ Use flyspell in text buffers
   (use-package flycheck-pos-tip)
 
   (global-flycheck-mode)
-
-  (with-eval-after-load 'flycheck
-    (flycheck-pos-tip-mode))
+  (flycheck-pos-tip-mode)
 
   (add-hook 'text-mode-hook 'flyspell-mode)
   (add-hook 'prog-mode-hook 'flyspell-prog-mode)
