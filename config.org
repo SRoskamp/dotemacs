@@ -412,7 +412,10 @@ Include minted package in Latex exports
 #+END_SRC
 
 * Editing
-
+** async
+#+BEGIN_SRC emacs-lisp
+  (use-package async)
+#+END_SRC
 ** abbrevs
 
 Prefix abbrevs with ; to avoid collisions with real words
@@ -516,6 +519,12 @@ Use =avy= to jump to specific lines or words, use ace-window to switch between w
   (use-package yasnippet
     :init
       (yas-global-mode 1))
+#+END_SRC
+** transfer-sh
+   Enables easy uploading of files to transfer.sh
+
+#+BEGIN_SRC emacs-lisp
+  (use-package transfer-sh)
 #+END_SRC
 * Additional keybindings
 
