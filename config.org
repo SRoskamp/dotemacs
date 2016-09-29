@@ -241,6 +241,7 @@ Enable call to Nomenclature first when compiling Latex
 Automatically parse file after writing it
 
 #+BEGIN_SRC emacs-lisp
+  (setq TeX-auto-save t)
   (setq TeX-parse-self t)
 #+END_SRC
 
@@ -256,7 +257,7 @@ Enable math handling and always set the current file as the main one.
    (add-hook 'LaTeX-mode-hook
             (lambda ()
               (LaTeX-math-mode)
-              (setq TeX-master t)))
+              (setq TeX-master nil)))
 #+END_SRC
 ** Text
 
