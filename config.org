@@ -412,7 +412,7 @@ Include minted package in Latex exports
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 #+END_SRC
 
-* Editing
+* Packages
 ** async
 #+BEGIN_SRC emacs-lisp
   (use-package async)
@@ -527,6 +527,12 @@ Use =avy= to jump to specific lines or words, use ace-window to switch between w
 #+BEGIN_SRC emacs-lisp
   (use-package transfer-sh)
 #+END_SRC
+** undo-tree
+   #+BEGIN_SRC emacs-lisp
+     (use-package undo-tree
+       :init
+       (global-undo-tree-mode))
+   #+END_SRC
 * Additional keybindings
 
 #+BEGIN_SRC emacs-lisp
