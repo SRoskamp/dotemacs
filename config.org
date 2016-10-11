@@ -188,6 +188,7 @@ Set VHDL preferences:
  - Use rising_edge
  - Use active-high, synchronous resets
  - Dont use array indexes in sensitivity list
+ - Use direct instantiation template
 
 #+BEGIN_SRC emacs-lisp
   (setq vhdl-date-format "%d.%m.%Y")
@@ -204,6 +205,8 @@ Set VHDL preferences:
 
   ; Sensitivity list
   (setq vhdl-array-index-record-field-in-sensitivity-list nil)
+
+  (setq vhdl-use-direct-instantiation 'always)
 #+END_SRC
 ** Python
 
@@ -397,6 +400,20 @@ Include minted package in Latex exports
  
     #+BEGIN_SRC emacs-lisp
       (use-package ox-twbs)
+    #+END_SRC
+*** Latex
+    #+BEGIN_SRC emacs-lisp
+      (require 'org-latex)
+
+      (add-to-list 'org-latex-classes
+                   '("scrreprt"
+                     "\\documentclass[11pt]{scrreprt}"
+                     ("\\chapter{%s}" . "\\chapter*{%s}")
+                     ("\\section{%s}" . "\\section*{%s}")
+                     ("\\subsection{%s}" . "\\subsection*{%s}")
+                     ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                     ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                     ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
     #+END_SRC
 * Editing
 
