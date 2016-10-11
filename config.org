@@ -188,6 +188,7 @@ Set VHDL preferences:
  - Use rising_edge
  - Use active-high, synchronous resets
  - Dont use array indexes in sensitivity list
+ - Use direct instantiation template
 
 #+BEGIN_SRC emacs-lisp
   (setq vhdl-date-format "%d.%m.%Y")
@@ -204,6 +205,8 @@ Set VHDL preferences:
 
   ; Sensitivity list
   (setq vhdl-array-index-record-field-in-sensitivity-list nil)
+
+  (setq vhdl-use-direct-instantiation 'always)
 #+END_SRC
 ** Python
 
