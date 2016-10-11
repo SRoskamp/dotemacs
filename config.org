@@ -244,6 +244,7 @@ Enable call to Nomenclature first when compiling Latex
 Automatically parse file after writing it
 
 #+BEGIN_SRC emacs-lisp
+  (setq TeX-auto-save t)
   (setq TeX-parse-self t)
 #+END_SRC
 
@@ -259,7 +260,7 @@ Enable math handling and always set the current file as the main one.
    (add-hook 'LaTeX-mode-hook
             (lambda ()
               (LaTeX-math-mode)
-              (setq TeX-master t)))
+              (setq TeX-master nil)))
 #+END_SRC
 ** Text
 
@@ -415,8 +416,12 @@ Include minted package in Latex exports
                      ("\\paragraph{%s}" . "\\paragraph*{%s}")
                      ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
     #+END_SRC
-* Editing
 
+* Packages
+** async
+#+BEGIN_SRC emacs-lisp
+  (use-package async)
+#+END_SRC
 ** abbrevs
 
 Prefix abbrevs with ; to avoid collisions with real words
@@ -519,6 +524,18 @@ Use =avy= to jump to specific lines or words, use ace-window to switch between w
     :init
       (yas-global-mode 1))
 #+END_SRC
+** transfer-sh
+   Enables easy uploading of files to transfer.sh
+
+#+BEGIN_SRC emacs-lisp
+  (use-package transfer-sh)
+#+END_SRC
+** undo-tree
+   #+BEGIN_SRC emacs-lisp
+     (use-package undo-tree
+       :init
+       (global-undo-tree-mode))
+   #+END_SRC
 * Additional keybindings
 
 #+BEGIN_SRC emacs-lisp
