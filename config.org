@@ -403,17 +403,19 @@ Include minted package in Latex exports
       (use-package ox-twbs)
     #+END_SRC
 *** Latex
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'org-latex-classes
-               '("scrreprt"
-                 "\\documentclass{scrreprt}"
-                 ("\\chapter{%s}" . "\\chapter*{%s}")            
-                 ("\\section{%s}" . "\\section*{%s}")
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-#+END_SRC
+    #+BEGIN_SRC emacs-lisp
+      (require 'org-latex)
+
+      (add-to-list 'org-latex-classes
+                   '("scrreprt"
+                     "\\documentclass[11pt]{scrreprt}"
+                     ("\\chapter{%s}" . "\\chapter*{%s}")
+                     ("\\section{%s}" . "\\section*{%s}")
+                     ("\\subsection{%s}" . "\\subsection*{%s}")
+                     ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                     ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                     ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+    #+END_SRC
 
 * Packages
 ** async
