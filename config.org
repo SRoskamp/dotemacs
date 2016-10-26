@@ -536,11 +536,6 @@ Use =avy= to jump to specific lines or words, use ace-window to switch between w
        :init
        (global-undo-tree-mode))
    #+END_SRC
-** magit
-   #+BEGIN_SRC emacs-lisp
-     (use-package magit)
-     (global-set-key (kbd "C-x g") 'magit-status)
-   #+END_SRC
 * Additional keybindings
 
 #+BEGIN_SRC emacs-lisp
