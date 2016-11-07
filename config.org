@@ -543,6 +543,15 @@ Use =avy= to jump to specific lines or words, use ace-window to switch between w
      (use-package aggressive-indent
        :config (global-aggressive-indent-mode 1))
    #+END_SRC
+** gnuplot mode
+   #+BEGIN_SRC emacs-lisp
+     (use-package gnuplot-mode)
+   #+END_SRC
+** ebib
+   #+BEGIN_SRC emacs-lisp
+     (use-package ebib
+       :config (setq ebib-bibtex-dialect 'biblatex))
+   #+END_SRC
 * Additional keybindings
 
 #+BEGIN_SRC emacs-lisp
