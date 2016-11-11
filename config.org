@@ -478,7 +478,7 @@ Use flyspell in text buffers
   (use-package projectile
     :config (projectile-global-mode))
 #+END_SRC
-** ace-jump
+** avy and ace-window
 
 Use =avy= to jump to specific lines or words, use ace-window to switch between windows
 
@@ -487,6 +487,11 @@ Use =avy= to jump to specific lines or words, use ace-window to switch between w
 
   (global-set-key (kbd "C-c SPC") 'avy-goto-char)
   (global-set-key (kbd "C-c C-SPC") 'avy-goto-line)
+
+  (use-package avy-zap
+    :config
+    (global-set-key (kbd "M-z") 'avy-zap-to-char-dwim)
+    (global-set-key (kbd "M-Z") 'avy-zap-up-to-char-dwim))
 
   (use-package ace-window)
   (global-set-key (kbd "M-p") 'ace-window)
