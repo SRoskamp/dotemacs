@@ -537,11 +537,6 @@ Use =avy= to jump to specific lines or words, use ace-window to switch between w
      (use-package magit)
      (global-set-key (kbd "C-x g") 'magit-status)
    #+END_SRC
-** aggressive indent
-   #+BEGIN_SRC emacs-lisp
-     (use-package aggressive-indent
-       :config (global-aggressive-indent-mode 1))
-   #+END_SRC
 ** gnuplot mode
    #+BEGIN_SRC emacs-lisp
      (use-package gnuplot-mode)
