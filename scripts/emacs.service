@@ -1,0 +1,14 @@
+[Unit]
+Description=Emacs: the extensible, self-documenting text editor
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/emacs --daemon
+ExecStop=/usr/bin/emacsclient -e "(kill-emacs)"
+Restart=always
+
+# Remove timeout, starting emacs can take a while
+TimeoutStartSec=0
+
+[Install]
+WantedBy=default.target
