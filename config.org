@@ -559,3 +559,13 @@ Use =avy= to jump to specific lines or words, use ace-window to switch between w
   (global-set-key (kbd "C-c i") 'imenu)
   (global-set-key [remap dabbrev-expand] 'hippie-expand)
 #+END_SRC
+* Final touches
+  Always save the current emacs session when leaving so buffers will be re-opened on startup
+
+  #+BEGIN_SRC emacs-lisp
+    (setq desktop-path '("~"))
+    (setq desktop-save t)
+    (setq desktop-load-locked-desktop nil)
+    (setq desktop-restore-eager 10)
+    (desktop-save-mode 1)
+  #+END_SRC
