@@ -274,6 +274,10 @@ Install matlab-mode package
 #+BEGIN_SRC emacs-lisp
   (use-package matlab-mode)
 #+END_SRC
+** Tcl
+   #+BEGIN_SRC emacs-lisp
+     (add-to-list 'auto-mode-alist '("\\.do\\'" . tcl-mode))
+   #+END_SRC
 ** Arduino
 
 Install and use =arduino-mode= package
