@@ -563,7 +563,8 @@ Use =avy= to jump to specific lines or words, use ace-window to switch between w
   Always save the current emacs session when leaving so buffers will be re-opened on startup
 
   #+BEGIN_SRC emacs-lisp
-    (setq desktop-path '("~"))
+    (setq desktop-dirname "~")
+    (setq desktop-path (list desktop-dirname))
     (setq desktop-save t)
     (setq desktop-load-locked-desktop nil)
     (setq desktop-restore-eager 10)
