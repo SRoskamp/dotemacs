@@ -575,14 +575,17 @@ Use =avy= to jump to specific lines or words, use ace-window to switch between w
   (global-set-key (kbd "C-c i") 'imenu)
   (global-set-key [remap dabbrev-expand] 'hippie-expand)
 #+END_SRC
-* Final touches
+* Save state on shutdown 
   Always save the current emacs session when leaving so buffers will be re-opened on startup
 
   #+BEGIN_SRC emacs-lisp
-    (setq desktop-dirname "~")
-    (setq desktop-path (list desktop-dirname))
-    (setq desktop-save t)
-    (setq desktop-load-locked-desktop nil)
-    (setq desktop-restore-eager 10)
+    (setq desktop-dirname             "~"
+  	desktop-base-file-name      "emacs.desktop"
+  	desktop-back-lock-name      "lock"
+  	desktop-path                (list desktop-dirname)
+  	desktop-save                t
+  	desktop-files-not-to-save   "^$"
+  	desktop-load-locked-desktop nil
+  	desktop-restore-eager       10)
     (desktop-save-mode 1)
   #+END_SRC
