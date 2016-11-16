@@ -118,11 +118,21 @@ Why not?
 #+END_SRC
 ** Load up a theme
 
-Install or enable the zenburn package, and enable it
+Install or enable the color-theme-sanityinc-tomorrow package, and enable it
 
 #+BEGIN_SRC emacs-lisp
-  (use-package zenburn-theme
-    :config (load-theme 'zenburn t))
+  ;; Trust themes by default so it doesn't bother me when starting up
+  (setq custom-safe-themes t)
+
+  (use-package color-theme-sanityinc-tomorrow
+    :config (color-theme-sanityinc-tomorrow-eighties))
+#+END_SRC
+
+Load or install =rainbow-delimiters= package to color parens by level
+
+#+BEGIN_SRC emacs-lisp
+  (use-package rainbow-delimiters
+    :config (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 #+END_SRC
 ** Enable line numbers
 
