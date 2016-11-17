@@ -581,7 +581,7 @@ Use =avy= to jump to specific lines or words, use ace-window to switch between w
 
   #+BEGIN_SRC emacs-lisp
     (setq desktop-dirname             "~"
-  	desktop-base-file-name      "emacs.desktop"
+  	desktop-base-file-name      ".emacs.desktop"
   	desktop-back-lock-name      "lock"
   	desktop-path                (list desktop-dirname)
   	desktop-save                t
