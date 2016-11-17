@@ -132,7 +132,8 @@ Load or install =rainbow-delimiters= package to color parens by level
 
 #+BEGIN_SRC emacs-lisp
   (use-package rainbow-delimiters
-    :config (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+    :config (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+            (add-hook 'latex-mode-hook #'rainbow-delimiters-mode))
 #+END_SRC
 ** Enable line numbers
 
