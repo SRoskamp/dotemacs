@@ -135,7 +135,24 @@ Load or install =rainbow-delimiters= package to color parens by level
     :config (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
             (add-hook 'latex-mode-hook #'rainbow-delimiters-mode))
 #+END_SRC
-** Enable line numbers
+** Customize the modeline
+   #+BEGIN_SRC emacs-lisp
+     (setq-default mode-line-format
+      	     '("%e" mode-line-front-space
+      	       ;; Standard info
+      	       mode-line-mule-info
+      	       mode-line-client
+      	       mode-line-modified
+      	       mode-line-remote
+      	       mode-line-frame-identification
+   	       mode-line-buffer-identification
+   	       "%3 "
+   	       mode-line-modes
+   	       "%3 L%l C%c %3"
+   	       mode-line-end-spaces	     
+      	       ))
+   #+END_SRC
+** Fringe / Line number settings
 
 Reserve 4 digits for line numbers, leading spaces with a pipe
 as a spacer. Also remove the right fringe.
