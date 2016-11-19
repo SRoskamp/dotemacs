@@ -141,9 +141,9 @@ Reserve 4 digits for line numbers, leading spaces with a pipe
 as a spacer. Also remove the right fringe.
 
 #+BEGIN_SRC emacs-lisp
-  (global-linum-mode)
+;  (global-linum-mode)
   (setq linum-format "%4d")
-  (set-fringe-mode '(1 . 0))
+  (set-fringe-mode '(1 . 1))
 #+END_SRC
 ** Highlight the current line
 
