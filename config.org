@@ -174,11 +174,13 @@ lines in repositories
   (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode)
 #+END_SRC
 ** Highlight parens
-
 Highlight corresponding parens to that at point
 
 #+BEGIN_SRC emacs-lisp
   (show-paren-mode)
+  (set-face-background 'show-paren-match nil)
+  (set-face-foreground 'show-paren-match nil)
+  (set-face-attribute 'show-paren-match nil :weight 'extra-bold)
 #+END_SRC
 ** y-or-n everywhere
 
