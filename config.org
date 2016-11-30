@@ -334,7 +334,7 @@ Additional, rarely used modes
    Set a global key to quickly take notes, make appointments etc
 
    #+BEGIN_SRC emacs-lisp
-     ((global-set-key (kbd "C-c c") 'org-capture)
+     (global-set-key (kbd "C-c c") 'org-capture)
    #+END_SRC
 
 ** Display preferences
