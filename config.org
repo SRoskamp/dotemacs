@@ -315,6 +315,10 @@ Install and use =arduino-mode= package
 #+BEGIN_SRC emacs-lisp
 ;;  (use-package arduino-mode)
 #+END_SRC
+** Web
+   #+BEGIN_SRC emacs-lisp
+     (use-package web-mode)
+   #+END_SRC
 ** Additional modes
 
 Additional, rarely used modes
@@ -459,6 +463,12 @@ Include minted package in Latex exports
 #+BEGIN_SRC emacs-lisp
   (use-package async)
 #+END_SRC
+** better-shell
+   #+BEGIN_SRC emacs-lisp
+     (use-package better-shell
+         :bind (("C-'" . better-shell-shell)
+                ("C-;" . better-shell-remote-open)))
+   #+END_SRC
 ** ido
 
 #+BEGIN_SRC emacs-lisp
