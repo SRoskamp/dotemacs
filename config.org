@@ -242,6 +242,8 @@ function at point.
 #+BEGIN_SRC emacs-lisp
   (use-package elpy
     :config (elpy-enable))
+
+  (elpy-use-cpython "/usr/bin/python3")
 #+END_SRC
 ** Latex
 
