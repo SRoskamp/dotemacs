@@ -472,14 +472,14 @@ Include minted package in Latex exports
 ** ido
 
 #+BEGIN_SRC emacs-lisp
-  (use-package ido-ubiquitous)
+  (use-package ido-completing-read+)
   (use-package ido-vertical-mode)
   (use-package flx-ido)
 
   (setq ido-enable-flex-matching t)
   (setq ido-everywhere t)
   (ido-mode 1)
-  (ido-ubiquitous)
+  (ido-ubiquitous-mode 1)
   (flx-ido-mode 1)
   (setq ido-create-new-buffer 'always)
   (ido-vertical-mode 1)
