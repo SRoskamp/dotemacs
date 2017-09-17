@@ -332,13 +332,50 @@ Additional, rarely used modes
    In general, org-files are placed in the nextcloud to keep them synced across devices
 
    #+BEGIN_SRC emacs-lisp
-     (setq org-directory "~/nextcloud/org")
+     (setq org-directory "~/org")
    #+END_SRC
-** Org Capture
-   Set a global key to quickly take notes, make appointments etc
+** Org Agenda & Capture
+   Define TODO keywords
 
    #+BEGIN_SRC emacs-lisp
-     (global-set-key (kbd "C-c c") 'org-capture)
+     (setq org-todo-keywords
+	   '((sequence "TODO(a)" "STARTED(s)" "DONE(d)")))
+
+     (setq org-todo-keyword-faces
+	   '(("TODO" . org-warning) ("STARTED" . "green") ("DONE" . (:foreground "green" :weight bold))))
+   #+END_SRC
+
+   Set a global key to quickly take notes, todos, etc. Every capture will be stored in ~/org/org.org. See below for some
+   information on how to add recurring tasks etc.
+
+   #+BEGIN_SRC emacs-lisp
+	       (global-set-key (kbd "C-c c") 'org-capture)
+
+	       (setq org-capture-templates
+		     '(("t" "Task" entry (file+headline "~/org/org.org" "Tasks")
+			"* TODO %a: %^{Title} %^{Deadline}t\n  %^{Additional Info}\n\n  %i\n" :immediate-finish t)
+		       ("n" "Note" entry (file+headline "~/org/org.org" "Notes")
+			"* Note %a: %^{Title}\n\n  %?\n  %i\n")
+		       ("s" "Stuff" entry (file+headline "~/org/org.org" "Stuff")
+			"* %^{Title}\n\n  %i\n  %?\n")))
+   #+END_SRC
+
+   To add a recurring task, use the task template and add a "repeater". This can be yearly, monthly, weekly, daily and
+   hourly, using the y/w/m/d/h letters. To add an earlier reminder, add a second identifier after the repeater.
+
+   #+BEGIN_SRC org
+     ** TODO Weekly Status report! <2017-09-29 Fri +1w -3d>
+   #+END_SRC
+
+   Org agenda shows TODO tasks, appointments, etc. It loads this information from the master org-file in
+   ~/org/org.org. C-c a can be used to see this week's overview. To see an overview over all TODOs in that file, use
+   C-c t.
+
+   #+BEGIN_SRC emacs-lisp
+     (setq org-agenda-files '("~/org/org.org"))
+
+     (global-set-key (kbd "C-c a") 'org-agenda-list)
+     (global-set-key (kbd "C-c t") 'org-todo-list)
    #+END_SRC
 
 ** Display preferences
@@ -598,3 +635,9 @@ Use =avy= to jump to specific lines or words, use ace-window to switch between w
   (global-set-key (kbd "C-c i") 'imenu)
   (global-set-key [remap dabbrev-expand] 'hippie-expand)
 #+END_SRC
+* Initial state
+   This shows the org agenda for the next 14 days when emacs starts up.
+
+   #+BEGIN_SRC emacs-lisp
+     (add-hook 'after-init-hook '(lambda () (org-agenda-list) (delete-other-windows)))
+   #+END_SRC

@@ -37,7 +37,11 @@ test "$(visible_frames)" -eq "1" && change_focus
 
 if [ "$(visible_frames)" -lt "2" ]; then #need to create a frame
     # -c $@ with no args just opens the scratch buffer
-    emacsclient -n -c "$@" && change_focus
+    if [[ "$#" -ne "0" ]]; then
+	emacsclient -n -c "$@" && change_focus
+    else
+	emacsclient -n -c -e "(progn (org-agenda-list) (delete-other-windows))" > /dev/null && change_focus
+    fi
 else # there is already a visible frame besides the daemon, so
     change_focus
     # -n $@ errors if there are no args
