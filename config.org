@@ -354,7 +354,7 @@ Additional, rarely used modes
 
 	       (setq org-capture-templates
 		     '(("t" "Task" entry (file+headline "~/org/org.org" "Tasks")
-			"* TODO %^{Title} %^{Deadline}t\n  %a\n  %?\n\n  %i\n" :immediate-finish t)
+			"* TODO %^{Title} %^{Deadline}t\n  %a\n  %?\n\n  %i\n")
 		       ("n" "Note" entry (file+headline "~/org/org.org" "Notes")
 			"* Note: %^{Title}\n  %a\n  %?\n  %i\n")
 		       ("s" "Stuff" entry (file+headline "~/org/org.org" "Stuff")
