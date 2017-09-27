@@ -243,7 +243,6 @@ function at point.
   (use-package elpy
     :config (elpy-enable))
 
-  (elpy-use-cpython "/usr/bin/python3")
 #+END_SRC
 ** Latex
 
@@ -355,9 +354,9 @@ Additional, rarely used modes
 
 	       (setq org-capture-templates
 		     '(("t" "Task" entry (file+headline "~/org/org.org" "Tasks")
-			"* TODO %a: %^{Title} %^{Deadline}t\n  %^{Additional Info}\n\n  %i\n" :immediate-finish t)
+			"* TODO %^{Title} %^{Deadline}t\n  %a\n  %?\n\n  %i\n" :immediate-finish t)
 		       ("n" "Note" entry (file+headline "~/org/org.org" "Notes")
-			"* Note %a: %^{Title}\n\n  %?\n  %i\n")
+			"* Note: %^{Title}\n  %a\n  %?\n  %i\n")
 		       ("s" "Stuff" entry (file+headline "~/org/org.org" "Stuff")
 			"* %^{Title}\n\n  %i\n  %?\n")))
    #+END_SRC
