@@ -354,9 +354,9 @@ Additional, rarely used modes
 
 	       (setq org-capture-templates
 		     '(("t" "Task" entry (file+headline "~/org/org.org" "Tasks")
-			"* TODO %^{Title} %^{Deadline}t\n  %a\n  %?\n\n  %i\n")
+			"* TODO %^{Title}\n  SCHEDULED: %^{Schedule}t\n\n  %?\n\n  %i\n")
 		       ("n" "Note" entry (file+headline "~/org/org.org" "Notes")
-			"* Note: %^{Title}\n  %a\n  %?\n  %i\n")
+			"* Note: %^{Title}\n  %?\n  %i\n")
 		       ("s" "Stuff" entry (file+headline "~/org/org.org" "Stuff")
 			"* %^{Title}\n\n  %i\n  %?\n")))
    #+END_SRC
@@ -365,7 +365,8 @@ Additional, rarely used modes
    hourly, using the y/w/m/d/h letters. To add an earlier reminder, add a second identifier after the repeater.
 
    #+BEGIN_SRC org
-     ** TODO Weekly Status report! <2017-09-29 Fri +1w -3d>
+     ** TODO Weekly Status report!
+        SCHEDULED: <2017-09-29 Fri +1w -3d>
    #+END_SRC
 
    Org agenda shows TODO tasks, appointments, etc. It loads this information from the master org-file in
