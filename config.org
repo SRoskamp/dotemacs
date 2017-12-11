@@ -19,6 +19,12 @@ Use =use-package= to manage package usage
 
   (setq use-package-always-ensure t)
 #+END_SRC
+* Built-in Settings
+  When using align-* functions, use number of spaces to align instead of tabs
+
+  #+BEGIN_SRC emacs-lisp
+    (setq align-to-tab-stop nil)
+  #+END_SRC
 * Utility functions
 
 Define a bunch of helper functions
@@ -308,6 +314,7 @@ Install matlab-mode package
 ** Tcl
    #+BEGIN_SRC emacs-lisp
      (add-to-list 'auto-mode-alist '("\\.do\\'" . tcl-mode))
+     (add-to-list 'auto-mode-alist '("\\.sdc\\'" . tcl-mode))
    #+END_SRC
 ** Arduino
 
@@ -500,7 +507,6 @@ Include minted package in Latex exports
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 #+END_SRC
-
 * Packages
 ** async
 #+BEGIN_SRC emacs-lisp
