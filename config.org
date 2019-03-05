@@ -19,6 +19,13 @@ Use =use-package= to manage package usage
 
   (setq use-package-always-ensure t)
 #+END_SRC
+
+For custom scripts and non-melpa/elpa packages, add a load-path.
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/lisp/")
+#+END_SRC
+
 * General Settings
   When using align-* functions, use number of spaces to align instead of tabs
 
@@ -346,7 +353,7 @@ Additional, rarely used modes
 
    #+BEGIN_SRC emacs-lisp
      (setq org-todo-keywords
-	   '((sequence "TODO(t)" "STARTED(s)" "REJECTED(r)" "DONE(d)")))
+	   '((sequence "TODO(t)" "STARTED(s)" "|" "REJECTED(r)" "DONE(d)")))
 
      (setq org-todo-keyword-faces
 	   '(("TODO" . org-warning)
@@ -638,6 +645,13 @@ Use =avy= to jump to specific lines or words, use ace-window to switch between w
      (use-package ebib
        :config (setq ebib-bibtex-dialect 'biblatex))
    #+END_SRC
+* Custom extra packages
+Add ox-confluence. This is in org-contrib, but not available on Melpa/Elpa, so put it in a custom directory and load
+from there.
+
+#+BEGIN_SRC emacs-lisp
+  (require 'ox-confluence)
+#+END_SRC
 * Additional keybindings
 
 #+BEGIN_SRC emacs-lisp
