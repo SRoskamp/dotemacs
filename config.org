@@ -566,12 +566,6 @@ Use flyspell in text buffers
   (add-hook 'text-mode-hook 'flyspell-mode)
   (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 #+END_SRC
-** projectile
-
-#+BEGIN_SRC emacs-lisp
-  (use-package projectile
-    :config (projectile-global-mode))
-#+END_SRC
 ** avy and ace-window
 
 Use =avy= to jump to specific lines or words, use ace-window to switch between windows
